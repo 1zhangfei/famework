@@ -1,4 +1,4 @@
-module 2108a-zg5/week2/day10/famework
+module github.com/1zhangfei/famework
 
 go 1.21.4
 
