@@ -19,7 +19,8 @@ type Rgc struct {
 		Ip   string
 		Port int64
 	} `json:"grc"`
-	Name string `json:"tokenName"`
+	Name   string `json:"tokenName"`
+	Consul string `json:"consul"`
 }
 
 func getClient(address string) (*Rgc, error) {
@@ -49,7 +50,7 @@ func Service(address string, register func(s *grpc.Server)) error {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	err = consul.RegisterConsul(c.Add.Ip, c.Name)
+	err = consul.RegisterConsul(c.Add.Port, c.Name)
 	if err != nil {
 		return err
 	}

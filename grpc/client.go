@@ -12,7 +12,8 @@ func Client(address string) (*grpc.ClientConn, error) {
 	if err2 != nil {
 		return nil, err2
 	}
-	consAddress, port, err := consul.FindConsAddress(c.Name)
+
+	consAddress, port, err := consul.FindConsAddress(c.Add.Ip, c.Consul, c.Name)
 	if err != nil {
 		return nil, err
 	}

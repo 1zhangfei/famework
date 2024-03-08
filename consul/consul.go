@@ -36,8 +36,8 @@ func RegisterConsul(port int64, name string) error {
 
 }
 
-func FindConsAddress(name string) (string, int64, error) {
-	clin, err := api.NewClient(api.DefaultConfig())
+func FindConsAddress(ip, port, name string) (string, int64, error) {
+	clin, err := api.NewClient(&api.Config{Address: fmt.Sprintf("%v:%v", ip, port)})
 	if err != nil {
 		return "", 0, err
 	}
