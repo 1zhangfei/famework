@@ -44,7 +44,7 @@ import (
 //	return nil
 //}
 
-func WithMysqlClient(address string, hand func(cli *gorm.DB) error) error {
+func WithMysqlClient(address string, hand func(cli *gorm.DB) (interface{}, error)) error {
 	err := config.ViperInit(address)
 	if err != nil {
 		return err
@@ -92,7 +92,7 @@ func WithMysqlClient(address string, hand func(cli *gorm.DB) error) error {
 	if errs != nil {
 		return err
 	}
-	if err = hand(db); err != nil {
+	if _, err = hand(db); err != nil {
 		return err
 	}
 	return nil
