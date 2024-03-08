@@ -8,8 +8,8 @@ import (
 	"net"
 )
 
-func RegisterConsul(port int64, name string) error {
-	clin, err := api.NewClient(api.DefaultConfig())
+func RegisterConsul(addip string, port int64, port1 string, name string) error {
+	clin, err := api.NewClient(&api.Config{Address: fmt.Sprintf("%v:%v", addip, port1)})
 	if err != nil {
 		return err
 	}

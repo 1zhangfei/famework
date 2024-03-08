@@ -50,7 +50,7 @@ func Service(address string, register func(s *grpc.Server)) error {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	err = consul.RegisterConsul(c.Add.Port, c.Name)
+	err = consul.RegisterConsul(c.Add.Ip, c.Add.Port, c.Consul, c.Name)
 	if err != nil {
 		return err
 	}
