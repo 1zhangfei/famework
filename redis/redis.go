@@ -8,10 +8,10 @@ import (
 	"log"
 )
 
-func WithRedisCli(address string, hand func(cli *redis.Client) error) error {
+func WithRedisCli(address string, hand func(cli *redis.Client) (string, error)) (string, error) {
 	err := config.ViperInit(address)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	id := viper.GetString("Grpc.DataId")
@@ -27,10 +27,10 @@ func WithRedisCli(address string, hand func(cli *redis.Client) error) error {
 
 	res, err2 := config.GetConfig(id, Group)
 	if err2 != nil {
-		return err
+		return "", err
 	}
 	if err = json.Unmarshal([]byte(res), &val); err != nil {
-		return err
+		return "", err
 	}
 
 	cli := redis.NewClient(&redis.Options{
@@ -39,14 +39,16 @@ func WithRedisCli(address string, hand func(cli *redis.Client) error) error {
 		DB:       1,
 	})
 
-	if err = hand(cli); err != nil {
-		return err
+	add, err := hand(cli)
+	if err != nil {
+		return "", err
 	}
+
 	defer func(cli *redis.Client) {
 		if err = cli.Close(); err != nil {
 			log.Println("***********redis关闭失败=========")
 		}
 
 	}(cli)
-	return nil
+	return add, nil
 }
