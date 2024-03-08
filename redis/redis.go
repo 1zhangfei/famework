@@ -1,8 +1,8 @@
 package redis
 
 import (
-	"2108a-zg5/week2/day10/famework/config"
 	"encoding/json"
+	"github.com/1zhangfei/famework/config"
 	"github.com/go-redis/redis/v8"
 	"github.com/spf13/viper"
 	"log"

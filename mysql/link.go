@@ -1,10 +1,10 @@
 package mysql
 
 import (
-	"2108a-zg5/week2/day10/famework/config"
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"github.com/1zhangfei/famework/config"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

@@ -4,7 +4,6 @@ go 1.21.4
 
 require (
 	github.com/go-errors/errors v1.5.1
-	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/google/uuid v1.4.0
 	github.com/hashicorp/consul/api v1.25.1

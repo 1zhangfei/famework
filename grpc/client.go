@@ -1,8 +1,8 @@
 package grpc
 
 import (
-	"2108a-zg5/week2/day10/famework/consul"
 	"fmt"
+	"github.com/1zhangfei/famework/consul"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
