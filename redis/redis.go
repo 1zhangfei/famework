@@ -8,7 +8,7 @@ import (
 	"log"
 )
 
-func WithRedisCli(address string, hand func(cli *redis.Client) (interface{}, error)) error {
+func WithRedisCli(address string, hand func(cli *redis.Client) error) error {
 	err := config.ViperInit(address)
 	if err != nil {
 		return err
@@ -39,7 +39,7 @@ func WithRedisCli(address string, hand func(cli *redis.Client) (interface{}, err
 		DB:       1,
 	})
 
-	if _, err = hand(cli); err != nil {
+	if err = hand(cli); err != nil {
 		return err
 	}
 	defer func(cli *redis.Client) {
