@@ -1,10 +1,10 @@
 package grpc
 
 import (
-	"2108a-zg5/week2/day10/famework/config"
-	"2108a-zg5/week2/day10/famework/consul"
 	"encoding/json"
 	"fmt"
+	"github.com/1zhangfei/famework/config"
+	"github.com/1zhangfei/famework/consul"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
@@ -49,7 +49,7 @@ func Service(address string, register func(s *grpc.Server)) error {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	err = consul.RegisterConsul(c.Add.Port, c.Add.Ip, c.Name)
+	err = consul.RegisterConsul(c.Add.Ip, c.Name)
 	if err != nil {
 		return err
 	}

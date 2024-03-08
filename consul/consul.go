@@ -5,24 +5,26 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/google/uuid"
 	"github.com/hashicorp/consul/api"
+	"net"
 )
 
-func RegisterConsul(address string, port int64, name string) error {
+func RegisterConsul(port int64, name string) error {
 	clin, err := api.NewClient(api.DefaultConfig())
 	if err != nil {
 		return err
 	}
+	ip := GetIp()
 
 	err = clin.Agent().ServiceRegister(&api.AgentServiceRegistration{
 		ID:      uuid.NewString(),
 		Name:    name,
 		Tags:    []string{"GRPC"},
 		Port:    int(port),
-		Address: address,
+		Address: ip[0],
 		Check: &api.AgentServiceCheck{
 			Interval:                       "5s",
 			Timeout:                        "5s",
-			GRPC:                           fmt.Sprintf("%v:%v", address, port),
+			GRPC:                           fmt.Sprintf("%v:%v", ip[0], port),
 			DeregisterCriticalServiceAfter: "30s",
 		},
 	})
@@ -53,4 +55,21 @@ func FindConsAddress(name string) (string, int64, error) {
 
 	return data[0].Service.Address, int64(data[0].Service.Port), nil
 
+}
+
+func GetIp() (ip []string) {
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return ip
+	}
+	for _, addr := range addrs {
+		ipNet, isVailIpNet := addr.(*net.IPNet)
+		if isVailIpNet && !ipNet.IP.IsLoopback() {
+			if ipNet.IP.To4() != nil {
+				ip = append(ip, ipNet.IP.String())
+			}
+		}
+
+	}
+	return ip
 }
