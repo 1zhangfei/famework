@@ -49,8 +49,8 @@ func WithMysqlClient(address string, hand func(cli *gorm.DB) error) error {
 	if err != nil {
 		return err
 	}
-	ip := viper.GetString("Grpc.DataIp")
-	Group := viper.GetString("Grpc.Group")
+	ip := viper.GetString("Database.DataIp")
+	Group := viper.GetString("Database.Group")
 
 	type MysqlConf struct {
 		Username string
