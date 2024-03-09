@@ -18,7 +18,7 @@ type Rgc struct {
 	Add struct {
 		Ip   string
 		Port int64
-	} `json:"grc"`
+	} `json:"rpc"`
 	Name   string `json:"tokenName"`
 	Consul string `json:"consul"`
 }
