@@ -31,6 +31,7 @@ func getClient(address string) (*Rgc, error) {
 	id := viper.GetString("Grpc.DataId")
 	Group := viper.GetString("Grpc.Group")
 	cnf, err := config.GetConfig(id, Group)
+	fmt.Println("11111", cnf)
 	if err != nil {
 		return nil, err
 	}
