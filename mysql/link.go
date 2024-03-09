@@ -62,7 +62,7 @@ func WithMysqlClient(address string, hand func(cli *gorm.DB) error) error {
 	var val struct {
 		M MysqlConf `json:"Mysql"`
 	}
-
+	fmt.Println(ip, Group)
 	cnf, err := config.GetConfig(ip, Group)
 	if err != nil {
 		return err
