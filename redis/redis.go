@@ -2,6 +2,7 @@ package redis
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/1zhangfei/famework/config"
 	"github.com/go-redis/redis/v8"
 	"github.com/spf13/viper"
@@ -26,6 +27,7 @@ func WithRedisCli(address string, hand func(cli *redis.Client) (string, error)) 
 	}
 
 	res, err2 := config.GetConfig(id, Group)
+	fmt.Println("122123", res)
 	if err2 != nil {
 		return "", err
 	}
@@ -48,7 +50,6 @@ func WithRedisCli(address string, hand func(cli *redis.Client) (string, error)) 
 		if err = cli.Close(); err != nil {
 			log.Println("***********redis关闭失败=========")
 		}
-
 	}(cli)
 	return add, nil
 }
