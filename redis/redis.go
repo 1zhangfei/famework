@@ -15,7 +15,7 @@ func WithRedisCli(address string, hand func(cli *redis.Client) (string, error)) 
 		return "", err
 	}
 
-	id := viper.GetString("Database.DataId")
+	id := viper.GetString("Database.DataIp")
 	Group := viper.GetString("Database.Group")
 	fmt.Println("122123", id, Group)
 	type RedisConf struct {
